@@ -123,7 +123,7 @@ class SystemInstall(AnsibleModule):
         },
         'ubuntu': {
             'components': 'main,restricted,universe,multiverse',
-            'kernel': [ 'linux-image-generic', 'grub-ipxe' ],
+            'kernel': [ 'linux-image-generic', 'grub-pc' ],
             'dists': [ 'precise', 'saucy', 'trusty', 'utopic', 'vivid' ],
             'repository': 'http://archive.ubuntu.com/ubuntu'
         },
@@ -656,6 +656,7 @@ def main():
         si.install_extra_packages()
     else:
         si.debootstrap()
+        si.install_extra_packages()
     if not si.params['kernel'] is None:
         si.install_kernel()
     si.setup_root_passwd()
