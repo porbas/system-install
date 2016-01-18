@@ -9,25 +9,21 @@
   sudo: yes
   sudo_user: root
   connection: local
-  
+
   vars:
     - distrib: trusty
     - mirror: http://archive.ubuntu.com/ubuntu/
     - partition: partition-whole-disk
     - si_extra_packages:
       - openssh-server
-      - live-boot-initramfs-tools
-      - live-boot
-      - xfsprogs
-      - lvm2
-      - openssh-server
       - grub-pc
       - python
       - python-apt
-      - cryptsetup
-      - busybox
-      - dropbear
       - lsb-release
+      - mdadm
+    - boot_device:
+      - /dev/sda
+      - /dev/sdb
 
   tasks:
     - name: install debootstrap
@@ -36,7 +32,7 @@
         - debootstrap
         - cryptsetup
         - python-requests
-        
+
     - name: Fix debootstrap scripts
       copy:
         src="files/{{ item }}"
@@ -61,6 +57,7 @@
         distro='{{ distrib }}'
         kernel=yes
         partition='{{ partition }}'
+        boot_device='{{ boot_device }}'
 
     # Fix ssh configuration that prevent root login with password.
     - name: Fix ssh login
@@ -81,3 +78,6 @@
         - { r: '^.*(GRUB_TERMINAL).*', l: '\1=console' }
         - { r: '^.*(GRUB_CMDLINE_LINUX_DEFAULT).*' , l: '\1="verbose"' }
         - { r: '^.*(GRUB_TIMEOUT).*=.*', l: '\1="5"' }
+
+
+# vim:ft=ansible
