@@ -90,7 +90,7 @@
 
     - name: install /etc/network/interfaces
       template:
-        src: template/network_interfaces
+        src: templates/network_interfaces
         dest: "{{ path }}/etc/network/interfaces"
 
 - name: lets play with freshly created chroot
@@ -101,10 +101,10 @@
     - distrib: trusty
     - components: main restricted universe multiverse
     - add_repo:
-      - "http://pl.archive.ubuntu.com/ubuntu {{ distrib }}"
-      - "http://pl.archive.ubuntu.com/ubuntu {{ distrib }}-updates"
-      - "http://pl.archive.ubuntu.com/ubuntu {{ distrib }}-backports"
-      - "http://security.ubuntu.com {{ distrib }}-security"
+      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distrib }}"
+      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distrib }}-updates"
+      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distrib }}-backports"
+      - "deb http://security.ubuntu.com {{ distrib }}-security"
 
   tasks:
     - name: remove apt generic source
