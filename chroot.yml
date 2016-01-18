@@ -22,7 +22,7 @@
       - python-apt
       - lsb-release
       - mdadm
-      - ubuntu-minmal
+      - ubuntu-minimal
       - ubuntu-standard
       - ntp
     - boot_device:
@@ -91,11 +91,11 @@
     - name: install /etc/network/interfaces
       template:
         src: template/network_interfaces
-        dest: "{{ path }}/etc/network/interfaces
+        dest: "{{ path }}/etc/network/interfaces"
 
 - name: lets play with freshly created chroot
   hosts: chroot
-  conncection: chroot
+  connection: chroot
 
   vars:
     - distrib: trusty
@@ -118,7 +118,7 @@
         repo: "{{ item }} {{ components }}"
         state: present
         update_cache: yes
-      with_item: add_repo
+      with_items: add_repo
 
     - name: install default locale
       command: locale-gen en_US.UTF-8
