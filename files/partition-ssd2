@@ -1,10 +1,8 @@
-disk_config sda bootable:1 disklabel:gpt-bios
+disk_config disk1 bootable:1 disklabel:gpt-bios
 primary - 100G-300G  - -
 primary - 16G        - -
 
-disk_config sdb bootable:1 disklabel:gpt-bios
-primary - 100G-300G  - -
-primary - 16G        - -
+disk_config disk2 sameas:disk1
 
 disk_config raid
 raid1 /    sda1,sdb1   ext4   rw,errors=remount-ro
