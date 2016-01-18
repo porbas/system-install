@@ -259,7 +259,7 @@ If PKGS is a list, a loop is performed for each item.
             if _out != '':
                 self.msg.append("Package %s is installed in %s" % (p, target))
             else:
-                self.log('Installing packages: %s' % ','.join(pkgs))
+                self.log('Installing packages: %s' % p)
                 cmd = install_cmd + [ p ]
                 rc, _out, _err = self.run_command(cmd)
                 if rc != 0:
