@@ -93,6 +93,9 @@
         src: templates/network_interfaces
         dest: "{{ path }}/etc/network/interfaces"
 
+    - name: generate mdadm.conf
+      shell: "/usr/share/mdadm/mkconf > {{ path }}/etc/mdadm/mdadm.conf"
+
 - name: lets play with freshly created chroot
   hosts: chroot
   connection: chroot
@@ -124,6 +127,4 @@
       command: locale-gen en_US.UTF-8
 
 
-    - name: generate mdadm.conf
-      shell: "/usr/share/mdadm/mkconf > /etc/mdadm/mdadm.conf"
 # vim:ft=ansible
