@@ -10,3 +10,7 @@ disk_config raid
 raid1 /    sda1,sdb1   ext4   rw,errors=remount-ro
 raid1 swap sda2,sdb2   swap   sw
 
+disk_config disk3 disklabel:gpt
+raw-disk - 100% - -
+
+disk_config disk4 sameas:disk3
