@@ -1,0 +1,12 @@
+disk_config disk1 bootable:1 disklabel:gpt-bios
+primary - 1G         - -
+primary - 16G        - -
+primary - 100G-      - -
+
+disk_config disk2 sameas:disk1
+
+disk_config raid
+raid1 /boot sda1,sdb1   ext4   rw
+raid1 swap  sda2,sdb2   swap   sw
+raid1 /     sda3,sdb3   ext4   rw,errors=remount-ro
+
