@@ -1,6 +1,6 @@
 disk_config disk1 bootable:1 disklabel:gpt-bios
-primary - 100G-300G  - -
-primary - 16G        - -
+primary - 100G-1000G  - -
+primary - 16G         - -
 
 disk_config disk2 sameas:disk1
 
