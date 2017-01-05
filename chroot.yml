@@ -11,7 +11,7 @@
   connection: local
 
   vars:
-    - distrib: trusty
+    - distrib: xenial
     - mirror: http://archive.ubuntu.com/ubuntu/
     - partition: partition-whole-disk
     - path: /srv/target
@@ -73,7 +73,7 @@
         image: '{{ image | default() }}'
         kernel: yes
         partition: '{{ partition }}'
-	boot_device: '{{ boot_device }}'
+        boot_device: '{{ boot_device }}'
         path: '{{ path }}'
 
     # Fix ssh configuration that prevent root login with password.
@@ -102,16 +102,12 @@
         dest: /srv/target/etc/resolvconf/resolv.conf.d/tail
         state: absent
       ignore_errors: yes
-        
+
     - name: Fix revolconf tail issue (create empty file)
       file:
         dest: /srv/target/etc/resolvconf/resolv.conf.d/tail
         state: touch
       ignore_errors: yes
-
-    # system-install module doesn't make it correctly :(
-    - name: install fstab
-      command: cp /tmp/fai/fstab {{ path }}/etc/fstab
 
     - name: install /etc/network/interfaces
       template:
@@ -143,7 +139,7 @@
 
     - name: remove apt generic source
       apt_repository:
-        repo: "deb http://archive.ubuntu.com/ubuntu {{ distrib }} trusty main restricted universe multiverse"
+        repo: "deb http://archive.ubuntu.com/ubuntu {{ distrib }} main restricted universe multiverse"
         state: absent
         update_cache: yes
 
