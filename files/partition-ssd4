@@ -1,7 +1,9 @@
 disk_config disk1 bootable:1 disklabel:gpt-bios
-primary - 100G-1000G  - -
+primary - 16G-1000G  - -
 primary - 16G         - -
+# for ZFS write cache
 primary - 2G          - -
+# for ZFS read cache
 primary - 32G         - -
 
 disk_config disk2 sameas:disk1
