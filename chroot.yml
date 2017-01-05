@@ -17,25 +17,17 @@
     - path: /srv/target
     - si_extra_packages:
       - openssh-server
-      - live-boot-initramfs-tools
-      - live-boot
-      - xfsprogs
-      - lvm2
-      - openssh-server
       - grub-pc
       - python
       - python-apt
-      - cryptsetup
-      - busybox
-      - dropbear
       - lsb-release
       - mdadm
       - ubuntu-minimal
       - ubuntu-standard
       - ntp
     - boot_device:
-      - /dev/sda
-      - /dev/sdb
+      - "/dev/sda"
+      - "/dev/sdb"
 
   tasks:
     - name: install debootstrap
