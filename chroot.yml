@@ -114,12 +114,13 @@
   connection: chroot
 
   vars:
+    - distro: "{{ distrib|default('xenial') }}"
     - components: main restricted universe multiverse
     - add_repo:
-      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distrib }}"
-      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distrib }}-updates"
-      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distrib }}-backports"
-      - "deb http://security.ubuntu.com/ubuntu {{ distrib }}-security"
+      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distro }}"
+      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distro }}-updates"
+      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distro }}-backports"
+      - "deb http://security.ubuntu.com/ubuntu {{ distro }}-security"
 
   tasks:
     - name: add apt sources
@@ -127,11 +128,11 @@
         repo: "{{ item }} {{ components }}"
         state: present
         update_cache: no
-      with_items: add_repo
+      with_items: "{{ add_repo }}"
 
     - name: remove apt generic source
       apt_repository:
-        repo: "deb http://archive.ubuntu.com/ubuntu {{ distrib }} main restricted universe multiverse"
+        repo: "deb http://archive.ubuntu.com/ubuntu {{ distro }} main restricted universe multiverse"
         state: absent
         update_cache: yes
 
