@@ -5,7 +5,7 @@
 # System installation
 
 
-This ansible playbook will install a Debian / Ubuntu system on current
+This Ansible playbook will install a Debian / Ubuntu system on current
 server.
 
 ## Prerequisite
@@ -33,12 +33,9 @@ Once the server is booted you first need to install ansible's dependencies.
 
 Then you can checkout ansible in `~/Developer/ansible`:
 
-	mkdir -p ~/Developer
-	git clone https://github.com/ansible/ansible.git ~/Developer
-	cd ~/Developer/ansible
-	git submodule init
-	git submodule update
-	
+	mkdir -p ~/Developer/ansible
+	git clone --recurse-submodules https://github.com/ansible/ansible.git ~/Developer/ansible -b stable-2.2
+
 Then you can setup the ansible environment:
 
 	. ~/Developer/ansible/hacking/env-setup
@@ -50,13 +47,22 @@ Then you can setup the ansible environment:
 You can install your host using command:
 
 	ansible-playbook chroot.yml -i inventory \
-		-e partition=partition-encrypted-tmpfs \
-		-e mirror=http://mirrors.online.net/ubuntu
-
+		-e mirror=http://ftp2.fr.debian.org/debian \
+		-e distrib=jessie
 
 Be careful because all data on your hard drive will be erased. You have been
 warned.
 
+If your hard drive has no partition label you may get an error such as:
+
+    Created data directory /tmp/fai
+    Starting setup-storage 1.5
+    Command had non-zero exit code
+
+Simply create a partition layout using `parted` (change `/dev/sda` with your
+hard drive configuration):
+
+	parted /dev/sda -s mklabel gpt
 
 
 ## Role Description
@@ -103,6 +109,22 @@ This is the module file run on target host. It runs:
 - make sure required files are presents such as:
   - `/etc/fstab`
   - `/etc/network/interfaces` (setup for DHCP configuration)
+
+
+## Extra
+
+If you want to create an image of you newly installed system for future
+usage, you can run the following command as root:
+
+
+	tar --anchored --preserve-permissions --numeric-owner \
+		--xattrs --xattrs-include '*' --selinux --acls \
+		--one-file-system --exclude '/tmp/*' \
+		-czvf /tmp/`lsb_release -si`-`lsb_release -sc`-`uname -p`.tgz /
+
+The archive is not minimalistic but is a good start. If you want to create
+more optimized images for PXE usage have a look at
+[cw.ramdisk](https://github.com/cw-ansible/cw.ramdisk)
 
 ## Copyright
 
