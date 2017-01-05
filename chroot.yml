@@ -26,8 +26,8 @@
       - ubuntu-standard
       - ntp
     - boot_device:
-      - "/dev/sda"
-      - "/dev/sdb"
+      - /dev/sda
+      - /dev/sdb
 
   tasks:
     - name: install debootstrap

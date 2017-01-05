@@ -197,16 +197,21 @@ class SystemInstall(AnsibleModule):
                 else:
                     self.params['extra_packages'] = [ self.params['extra_packages'] ]
 
+        self._log('Got extra packages:')
+        self._log(self.params['extra_packages'])
+
         if not self.params['boot_device'] is None:
             if type(self.params['boot_device']) != type([]):
                 if self.params['boot_device'].startswith('['):
                     self.params['boot_device'] = \
-                        self.params['boot_device'][1:-1].split(', ')
+                      [ x.strip("'") for x in self.params['boot_device'][1:-1].split(', ') ]
                 else:
                     self.params['boot_device'] = [ self.params['boot_device'] ]
 
-        self.tmp_path = self.params['__ansible_tmp']#os.path.dirname(sys.argv[0])
+        self._log('Got boot_device:')
+        self._log(self.params['boot_device'])
 
+        self.tmp_path = self.params['__ansible_tmp']#os.path.dirname(sys.argv[0])
 
     def _log(self, msg):
         sep = '  '
