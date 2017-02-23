@@ -119,7 +119,8 @@
     - add_repo:
       - "deb http://pl.archive.ubuntu.com/ubuntu {{ distro }}"
       - "deb http://pl.archive.ubuntu.com/ubuntu {{ distro }}-updates"
-      - "deb http://pl.archive.ubuntu.com/ubuntu {{ distro }}-backports"
+      - "deb http://ftp.icm.edu.pl/pub/Linux/ubuntu {{ distro }}"
+      - "deb http://ftp.icm.edu.pl/pub/Linux/ubuntu {{ distro }}-updates"
       - "deb http://security.ubuntu.com/ubuntu {{ distro }}-security"
 
   tasks:
