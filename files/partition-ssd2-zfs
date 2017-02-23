@@ -1,6 +1,9 @@
 disk_config disk1 bootable:1 disklabel:gpt-bios
+#root fs
 primary - 48G         - -
+#swap
 primary - 16G         - -
+#zfs storage
 primary - 100G-       - -
 
 disk_config disk2 sameas:disk1
