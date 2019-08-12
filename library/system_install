@@ -132,7 +132,7 @@ class SystemInstall(AnsibleModule):
             'components': 'main,restricted,universe,multiverse',
             'kernel': [ 'linux-image-generic', 'grub-pc' ],
             'dists': [ 'precise', 'saucy', 'trusty', 'utopic', 'vivid',
-                       'willy', 'xenial' ],
+                       'willy', 'xenial', 'bionic' ],
             'repository': 'http://archive.ubuntu.com/ubuntu'
         },
     }
