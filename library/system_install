@@ -358,7 +358,7 @@ If PKGS is a list, a loop is performed for each item.
         cmd = [ './setup-storage', '-d', '-X', '-f', 'conf.d/%s' % partition_conf ]
         os.chmod('fai-disk-info', stat.S_IEXEC)
         os.chmod('fai-vol_id', stat.S_IEXEC)
-        cmd = [ 'perl', './setup-storage', '-d', '-X', '-f', 'conf.d/%s' % partition_conf ]
+        cmd = [ 'perl', '-I', '.', './setup-storage', '-d', '-X', '-f', 'conf.d/%s' % partition_conf ]
 
         # setup-storage parses {pv|vg|lv}display output.
         os.putenv('LC_ALL', 'C')
