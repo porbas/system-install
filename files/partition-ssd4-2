@@ -1,0 +1,23 @@
+# disk config for SSD about 400GB, HDD 6TB
+# planned two zpools:
+# spool (SSD only)
+# hpool (HDD for data, SSD for SLOG and LARC2)
+# no swap, root md large enough to have swapfile if necessary
+disk_config disk1 bootable:1 disklabel:gpt-bios
+primary - 32G  - -
+# for ZFS write cache
+primary - 2G          - -
+# for ZFS read cache
+primary - 16G-32G     - -
+# for spool
+primary - 32G-1000G   - -
+
+disk_config disk2 sameas:disk1
+
+disk_config raid
+raid1 /    sda1,sdb1   ext4   rw,errors=remount-ro
+
+disk_config disk3 disklabel:gpt
+raw-disk - 100% - -
+
+disk_config disk4 sameas:disk3
