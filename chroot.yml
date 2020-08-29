@@ -72,7 +72,7 @@
     - name: Fix ssh login
       lineinfile:
         dest: /srv/target/etc/ssh/sshd_config
-        regexp: '^PermitRootLogin .*'
+        regexp: '^[# ]*PermitRootLogin.*'
         line: 'PermitRootLogin yes'
         backrefs: yes
 
